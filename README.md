@@ -69,4 +69,4 @@ When a quiz starts, the client receives a single, full JSON response from the se
 - GET /api/play/history - Get logged user's quiz history
 
 ##Database schema
-!(https://github.com/KrzysztofKantorski/Quiz-platfom/edit/master/images/dbSchema.png)
+![](https://github.com/KrzysztofKantorski/Quiz-platfom/edit/master/images/dbSchema.png)
