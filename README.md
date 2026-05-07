@@ -67,3 +67,6 @@ When a quiz starts, the client receives a single, full JSON response from the se
 - GET /api/play/quizzes/{id}/play - Fetch full JSON with questions (Start quiz)
 - POST /api/play/quizzes/{id}/submit - Submit answers and calculate score
 - GET /api/play/history - Get logged user's quiz history
+
+##Database schema
+!(https://github.com/KrzysztofKantorski/Quiz-platfom/edit/master/images/dbSchema.png)
