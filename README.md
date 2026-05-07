@@ -68,5 +68,5 @@ When a quiz starts, the client receives a single, full JSON response from the se
 - POST /api/play/quizzes/{id}/submit - Submit answers and calculate score
 - GET /api/play/history - Get logged user's quiz history
 
-##Database schema
+## Database schema
 ![](images/dbSchema.png)
