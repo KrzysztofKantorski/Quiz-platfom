@@ -13,9 +13,11 @@ The backend provides functionalities for managing and solving quizzes, built on 
 ## Local configuration
 
 1. Clone the repository:
+```bash
 git clone https://github.com/YourUsername/RepositoryName.git
+```
 
-2. Configure credentials:
+3. Configure credentials:
 Create an .env file in the root folder of the project and add the following fields:
 - CONN_STRING = your PostgreSQL connection string
 - JWT_SECRET = your secret key (at least 32 characters)
@@ -24,10 +26,13 @@ Create an .env file in the root folder of the project and add the following fiel
 
 3. Run database migrations:
 Type the following command in the terminal to create database tables:
+```bash
 dotnet ef database update
-
-4. Run the app:
+```
+5. Run the app:
+```bash
 dotnet run
+```
 The app starts by default at: https://localhost:5216
 
 ## Project structure
