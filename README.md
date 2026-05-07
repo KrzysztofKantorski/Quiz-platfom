@@ -1,48 +1,64 @@
 # Quiz App API
 
-Backend provides functionalities such as managing and solving quizes and is built with REST API architecture. 
-Project also implements user roles (user/admin) and JWT authentication (Httponly Cookies)
+The backend provides functionalities for managing and solving quizzes, built on a REST API architecture. The system supports user roles (Admin/User) and secure JWT authentication using HttpOnly cookies.
 
 ## Technologies
 
-- **Framework:** .NET 8 (ASP.NET Core Web API)
-- **Database:** PostgreSQL
-- **ORM:** Entity Framework Core
-- **Authentication:** JWT Token (Httponly Cookies)
-- **Validation:** FluentValidation
+* Framework: .NET 8 (ASP.NET Core Web API)
+* Database: PostgreSQL
+* ORM: Entity Framework Core
+* Authentication: JWT Token (HttpOnly Cookies)
+* Validation: FluentValidation
 
 ## Local configuration
 
-**1. Clone repository:**
-\`\`\`bash
-git clone https://github.com/TwojLogin/NazwaRepozytorium.git
-cd RepositoryName
-\`\`\`
+1. Clone the repository:
+git clone https://github.com/YourUsername/RepositoryName.git
 
-**2. Configure credentials:**
-Create your own .env file in main folder and add fields 
-- CONN_STRING = connection string from postgres
-- JWT_SECRET = create your own sercret (at least 32 marks)
-- JWT_ISSUER = backend address
-- JWT_AUDIENCE = frontend address
+2. Configure credentials:
+Create an .env file in the root folder of the project and add the following fields:
+- CONN_STRING = your PostgreSQL connection string
+- JWT_SECRET = your secret key (at least 32 characters)
+- JWT_ISSUER = backend address (e.g., https://localhost:5216)
+- JWT_AUDIENCE = frontend address (e.g., http://localhost:5173)
 
-**3. Uruchom migracje bazy danych:**
-Create database schema using migration. Type in terminal
-\`\`\`bash
+3. Run database migrations:
+Type the following command in the terminal to create database tables:
 dotnet ef database update
-\`\`\`
 
-**4. Run app:**
-\`\`\`bash
+4. Run the app:
 dotnet run
-\`\`\`
-App should start under address: `https://localhost:5216`.
+The app starts by default at: https://localhost:5216
 
 ## Project structure
 
-- `/Controllers` - endpoints for api(like. `AuthController`, `PlayController`).
-- `/Models` - Entities (User, Quiz, Question) and Dto's.
-- `/Services` - Business logic (like checking answers, calculating score).
-- `/Data` -  `ApplicationDbContext` config (Entity Framework).
-- `/Extensions` - CORS, jwt config.
+* /Controllers - API endpoints (e.g., Auth, Play, Admin)
+* /Models - Database entities and DTOs
+* /Services - Business logic (calculating scores, checking answers)
+* /Data - Database configuration (DbContext)
+* /Extensions - CORS and JWT configuration
+* /Validators - Validate incomming data
+* /Middlewares - Catch errors
+* /Migrations - Database migrations created with Entity Framework
+  
+## Quiz Flow
 
+When a quiz starts, the client receives a single, full JSON response from the server. It contains the entire quiz structure: all questions along with available answers. This allows the client application to smoothly switch between questions without constantly making requests to the server. After finishing the quiz, the client sends a single payload with all selected answers back to the server for validation and score calculation.
+
+## API Reference
+
+### Authentication (Auth)
+- POST /api/auth/register - Register a new user
+- POST /api/auth/login - Login (sets HttpOnly cookie)
+
+### Admin Panel (Admin role required)
+- GET /api/admin/quizzes - Get a list of all quizzes
+- POST /api/admin/quizzes - Create a new quiz with questions
+- PUT /api/admin/quizzes/{id} - Update an existing quiz
+- DELETE /api/admin/quizzes/{id} - Delete a quiz
+
+### Play (User role required)
+- GET /api/play/quizzes - Get a list of available quizzes to solve
+- GET /api/play/quizzes/{id}/play - Fetch full JSON with questions (Start quiz)
+- POST /api/play/quizzes/{id}/submit - Submit answers and calculate score
+- GET /api/play/history - Get logged user's quiz history
